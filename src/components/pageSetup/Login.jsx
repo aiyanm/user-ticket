@@ -110,9 +110,10 @@ export default function Login() {
             Terms of Service
           </a>{" "}
           and{" "}
-          <a href="#" className="underline underline-offset-4 hover:text-primary">
+          <Link to={'/Chatbot'} className="underline underline-offset-4 hover:text-primary">Privacy Policy</Link>
+          {/* <a href="#" className="underline underline-offset-4 hover:text-primary">
             Privacy Policy
-          </a>.
+          </a>. */}
         </div>
       </div>
     </div>

@@ -10,12 +10,14 @@ import Login from "./components/pageSetup/Login";
 import Home from "./components/pageSetup/Home";
 import RegisterPage from './components/pageSetup/CreateAccountForm.jsx'
 import Admin from './components/pageSetup/Admin.jsx'
+import Chatbot from "./components/pageSetup/chatbot";
 
 const router = createBrowserRouter([
   { path: "/", element: <Login /> },
   { path: "/home", element: <Home /> },
   { path: "/RegisterPage", element: <RegisterPage /> },
   { path: "/Admin", element: <Admin /> },
+  { path: "/Chatbot", element: <Chatbot /> },
 ]);
 
 createRoot(document.getElementById('root')).render(
