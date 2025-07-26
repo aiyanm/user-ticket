@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { MessageInput } from "@/components/ui/message-input"
 import { MessageList } from "@/components/ui/message-list";
 
-const Chatbot = () => {
+
+  const Chatbot = () => {
   const [messages, setMessages] = useState([
       { id: "1", role: "assistant", content: "Hello! How can I help you today?" },
   ]);
@@ -10,44 +11,59 @@ const Chatbot = () => {
   const [input, setInput] = useState("");
   const [showSidebar, setShowSidebar] = useState(true);
   const [isTyping, setIsTyping] = useState(false);
+  
 
-  const handleSend = (e) => {
-    if (!input.trim()) return;
+  const handleSend = async () => {
+  if (!input.trim()) return;
 
-    const userMessage = {
-      id: Date.now().toString(),
-      role: "user",
-      content: input,
-    }
+  const userMessage = {
+    id: Date.now().toString(),
+    role: "user",
+    content: input,
+  };
 
-    setMessages((prev) => [...prev, userMessage]);
-    setInput("");
-    setIsTyping(true);
+  setMessages((prev) => [...prev, userMessage]);
+  setInput("");
+  setIsTyping(true);
 
-    setTimeout(() => {
-      const botReply = {
-        id: (Date.now() + 1).toString(),
-        role: "assistant",
-        content: "This is a mock reply from the bot.",
+  try {
+    // 🔁 Replace this URL with your actual API endpoint
+    const response = await fetch("https://vii-children-scared-pts.trycloudflare.com/chat/response", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+       "question": input
+      }),
+      });
+
+    const data = await response.json();
+
+    const botReply = {
+      id: (Date.now() + 1).toString(),
+      role: "assistant",
+      content: data.answer || "No response from bot.",
     };
 
     setMessages((prev) => [...prev, botReply]);
+  } catch (error) {
+    const errorReply = {
+      id: (Date.now() + 1).toString(),
+      role: "assistant",
+      content: "Sorry, something went wrong while contacting the server.",
+    };
+
+    setMessages((prev) => [...prev, errorReply]);
+    console.error("API error:", error);
+  } finally {
     setIsTyping(false);
-  }, 1000);
+  }
 };
 
-  //   setTimeout(() => {
-  //     setMessages((prev) => [
-  //       ...prev,
-  //       { sender: "bot", text: "This is a mock reply from the bot." },
-  //     ]);
-  //   }, 800);
-  //   setInput("");
-  // };
-  
   return (
     <div className="flex h-screen w-full bg-gray-100">
-      {/* Side Panel */}
+      {/* Side Panel
       {showSidebar && (
         <div className="w-64 bg-white shadow-md p-4 border-r">
           <div className="flex justify-between items-center mb-4">
@@ -72,27 +88,35 @@ const Chatbot = () => {
             <li className="text-gray-600">Chat 2</li>
           </ul>
         </div>
-      )}
+      )} */}
 
       {/* Main chat */}
       <div className="flex flex-col flex-1">
       <header className="sticky top-0 z-10 bg-white border-b px-4 py-3 flex items-center justify-between">
-        <button
+        <div className="text-gray-600 hover:text-black">
+        </div>
+        {/* <button
             onClick={() => setShowSidebar((prev) => !prev)}
             className="text-gray-600 hover:text-black"
           >
             ☰
-         </button>
-      <h1 className="text-base font-semibold text-gray-800">KEIRO</h1>
+         </button> */}
+      <h1 className="text-base font-semibold text-gray-800">ASK NOAH</h1>
       <div className="w-6" />
       </header>
 
       {/* chat message */}
       <div className="flex-1 p-4 overflow-y-auto flex justify-center">  
         <div className="w-full max-w-3xl">
+          <div className="text-center mt-20">
+            {/* <h1 className="text-3xl font-semibold text-white">
+              Hello <span className="text-primary">there!</span>
+            </h1>
+            <p className="text-gray-400 text-lg mt-2">How can I help you today?</p> */}
+          </div>
           <MessageList messages={messages} isTyping={isTyping} />
+          </div>
         </div>
-      </div>
    
         <form 
         onSubmit={(e) =>{
@@ -100,6 +124,7 @@ const Chatbot = () => {
           handleSend();
         }}
         className="flex flex-col px-4 pb-4 md:pb-6 gap-4 w-full md:max-w-3xl mx-auto">
+
           {/* Textarea & Send */}
           <div className="flex items-end gap-4">
             <MessageInput

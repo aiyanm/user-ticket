@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+// import emails from "../../data/emails";
 
 const emails = [
   {

@@ -1,0 +1,26 @@
+[
+  {
+    "sender": "Khester Mesa",
+    "subject": "auxghlann invited you to auxghlann/tutorial_git",
+    "preview": "GitHub home @auxghlann has invited you...",
+    "fullContent": "GitHub home @auxghlann has invited you to the tutorial_git repository. Please accept the invitation to collaborate.",
+    "time": "10:53 AM",
+    "priority": "High"
+  },
+  {
+    "sender": "Dragonpay",
+    "subject": "Payment Confirmation for Transaction Ref: MVA7MPUUU5",
+    "preview": "Congratulations! This is to confirm...",
+    "fullContent": "Congratulations! This is to confirm your payment with reference number MVA7MPUUU5. Thank you for using Dragonpay.",
+    "time": "Jul 20",
+    "priority": "High"
+  },
+  {
+    "sender": "BDO Online Banking",
+    "subject": "BDO Online Banking Username Retrieved",
+    "preview": "Hello! You've requested to retrieve...",
+    "fullContent": "Hello! You've requested to retrieve your BDO Online Banking username. Please check your security settings for verification.",
+    "time": "Jul 19",
+    "priority": "Medium"
+  }
+]
